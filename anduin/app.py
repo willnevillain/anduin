@@ -23,6 +23,7 @@ def register_blueprints(app):
 def register_cli(app):
     """Register custom cli commands"""
     app.cli.add_command(cli.backfill)
+    app.cli.add_command(cli.empty)
 
 
 def register_errorhandlers(app):
