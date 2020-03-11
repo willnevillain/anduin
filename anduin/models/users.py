@@ -1,9 +1,8 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship, validates
 
+from anduin.constants import RACES
 from anduin.models.base_model import BaseModel
-
-RACES = ['Elf', 'Wizards', 'Dwarves']
 
 
 class Users(BaseModel):
