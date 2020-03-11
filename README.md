@@ -50,13 +50,26 @@ Migrate DB schema into created databases.
 flask db upgrade
 ```
 
-## Running Server
-With the virtualenv activated (probably via `pipenv shell`):
+## Commands
+All require virtualenv activated (probably via `pipenv shell`) and `FLASK_APP` env var exported.
+
+### Run Server
 ```bash
 flask run
 ```
 
-## Running Tests
+### Backfill Data
+```bash
+flask backfill
+```
+
+### Empty Database Tables
+Keeps schema intact, does not require re-migrating DB.
+```bash
+flask empty
+```
+
+### Running Tests
 ```bash
 pytest
 ```
