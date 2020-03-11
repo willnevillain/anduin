@@ -22,6 +22,8 @@ offers_weapons_association_table = sa.Table(
 
 
 class Offers(BaseModel):
+    __tablename__ = 'offers'
+
     status = sa.Column(sa.String, nullable=False, default=OFFER_STATUS_PENDING)
 
     users = relationship('Users', secondary=offers_users_association_table, backref='offers')

@@ -6,6 +6,8 @@ from anduin.models.base_model import BaseModel
 
 
 class Users(BaseModel):
+    __tablename__ = 'users'
+
     username = sa.Column(sa.String, unique=True, nullable=False)
     race = sa.Column(sa.String, nullable=False)
 

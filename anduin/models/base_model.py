@@ -3,10 +3,11 @@ from uuid import uuid4
 
 import sqlalchemy as sa
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+from anduin.app import db
 
-class BaseModel(Base):
+class BaseModel(db.Model):
+    __abstract__ = True
+
     id = sa.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     created_at = sa.Column(sa.DateTime, default=datetime.datetime.utcnow)

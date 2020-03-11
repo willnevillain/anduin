@@ -7,6 +7,8 @@ from anduin.models.base_model import BaseModel
 
 
 class Weapons(BaseModel):
+    __tablename__ = 'weapons'
+
     category = sa.Column(sa.String, nullable=False)
     owner = sa.Column(UUID(as_uuid=True), sa.ForeignKey('users.id'))
 
