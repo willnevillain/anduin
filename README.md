@@ -2,24 +2,24 @@
 
 ## Requirements
 
-#### Python 3.7.6
+##### Python 3.7.6
 Recommended to install via [pyenv](https://github.com/pyenv/pyenv).
 ```bash
 pyenv install 3.7.6
 ```
 
-#### Pipenv
+##### Pipenv
 Recommended tool for dependency and virtualenv management.
 ```bash
 brew install pipenv
 ```
 
-#### Postgres
+##### Postgres
 ```bash
 brew install postgres
 ```
 
-#### Docker
+##### Docker
 Ensure it is running by checking Menu Bar.
 ```bash
 brew cask install docker
@@ -61,9 +61,10 @@ flask run
 pytest
 ```
 
-## Troubleshooting
 
-#### Command not found: flask
+### Troubleshooting
+
+##### Command not found: flask
 You're not in the virtual environment.
 
 Option A: Run all flask commands with the virtualenv activated.
@@ -79,13 +80,13 @@ Option B: Run all flask commands preceded by `pipenv run --`, which will run the
 pipenv run -- flask db init
 ```
 
-#### Could not locate a Flask application
+##### Could not locate a Flask application
 Don't forget to set the `FLASK_APP` environment variable.
 ```bash
 export FLASK_APP=/path/to/entrypoint.py
 ```
 
-#### Unable to migrate DB
+###### Unable to migrate DB
 Nuke the `migrations/` folder and run the following commands:
 ```bash
 flask db init
@@ -95,7 +96,7 @@ flask db upgrade
 
 If the above doesn't work, please re-clone the repo to get back to square one, then create an issue.
 
-#### Psycopg2 fails to install
+##### Psycopg2 fails to install
 Export these environment variables to correctly link `openssl`, then try again.
 ```bash
 export LDFLAGS="-L/usr/local/opt/openssl/lib"
