@@ -15,6 +15,7 @@ def create_app(config):
 
 def register_extensions(app):
     """Register Flask extensions"""
+    from anduin import models  # Necessary to get Alembic to detect models
     db.init_app(app)
     migrate.init_app(app, db)
 
