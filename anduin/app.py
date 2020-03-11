@@ -1,21 +1,22 @@
 from flask import Flask
 
-from anduin.db import db
+from anduin.extensions import db, migrate
 
 
-def create_app():
+def create_app(config):
     """Build Flask application"""
     app = Flask(__name__)
-    init_db(app)
+    app.config.from_object(config)
     register_blueprints(app)
     register_errorhandlers(app)
+    register_extensions(app)
     return app
 
 
-def init_db(app):
-    """Initialize SQLAlchemy, dynamically create schema"""
+def register_extensions(app):
+    """Register Flask extensions"""
     db.init_app(app)
-    db.create_all()
+    migrate.init_app(app)
 
 
 def register_blueprints(app):
