@@ -23,3 +23,9 @@ POST /api/offers
 POST /api/offers/:id/accept
 POST /api/offers/:id/reject
 ```
+
+## Possible Areas to Scale
+1. Table to track enumerated races (currently validated in models/users.py)
+2. Table to track enumerated weapons (currently validate in models/weapons.py)
+3. Dedicated models for many-to-many tables (currently defined in models/offers.py)
+
