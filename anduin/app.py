@@ -16,7 +16,7 @@ def create_app(config):
 def register_extensions(app):
     """Register Flask extensions"""
     db.init_app(app)
-    migrate.init_app(app)
+    migrate.init_app(app, db)
 
 
 def register_blueprints(app):

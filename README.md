@@ -14,9 +14,9 @@ brew install postgres
 
 You'll also need a Postgres container stood up with DBs provisioned to run app or tests locally.
 ```bash
-docker run --name postgres-moria -e POSTGRES_PASSWORD=<use-LOCAL_DB_PASSWORD-from-config.py> -d postgres
-docker exec postgres-barrel psql -U postgres -c 'create database anduin_dev;'
-docker exec postgres-barrel psql -U postgres -c 'create database anduin_test;'
+docker run --name postgres-moria -e POSTGRES_PASSWORD=<use-LOCAL_DB_PASSWORD-from-config.py> -p 5432:5432 -d postgres
+docker exec postgres-moria psql -U postgres -c 'create database anduin_dev;'
+docker exec postgres-moria psql -U postgres -c 'create database anduin_test;'
 ```
 
 ### Troubleshooting

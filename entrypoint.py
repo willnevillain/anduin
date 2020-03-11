@@ -1,6 +1,5 @@
 from anduin.app import create_app
-from anduin.config import DevConfig
 
-CONFIG = DevConfig
+CONFIG = 'anduin.config.DevConfig'
 
 create_app(CONFIG)
