@@ -7,11 +7,23 @@ pipenv --python 3.7.6
 pipenv install
 ```
 
+Postgres needs to be installed via homebrew for its libs.
+```bash
+brew install postgres
+```
+
 You'll also need a Postgres container stood up with DBs provisioned to run app or tests locally.
 ```bash
 docker run --name postgres-moria -e POSTGRES_PASSWORD=<use-LOCAL_DB_PASSWORD-from-config.py> -d postgres
 docker exec postgres-barrel psql -U postgres -c 'create database anduin_dev;'
 docker exec postgres-barrel psql -U postgres -c 'create database anduin_test;'
+```
+
+### Troubleshooting
+If `psycopg2` fails to install, you will need to export some environment variables to correctly link `openssl` before trying again.
+```bash
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
 ```
 
 ## Running Server
