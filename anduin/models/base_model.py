@@ -40,3 +40,10 @@ class BaseModel(db.Model):
         db.session.add(self)
         db.session.flush() if flush_only else db.session.commit()
         return self
+
+    def delete(self):
+        """
+        Delete model.
+        """
+        db.session.delete(self)
+        db.session.commit()
