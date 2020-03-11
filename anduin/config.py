@@ -5,6 +5,7 @@ LOCAL_DB_PASSWORD = 'shirebaggins'
 
 class Config(object):
     """App Config"""
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class DevConfig(Config):
