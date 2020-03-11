@@ -86,7 +86,7 @@ Don't forget to set the `FLASK_APP` environment variable.
 export FLASK_APP=/path/to/entrypoint.py
 ```
 
-###### Unable to migrate DB
+##### Unable to migrate DB
 Nuke the `migrations/` folder and run the following commands:
 ```bash
 flask db init
