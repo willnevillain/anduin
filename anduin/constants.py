@@ -1,3 +1,8 @@
+# Environments
+ENV_DEV = 'Dev'
+ENV_PROD = 'Prod'
+ENV_TEST = 'Test'
+
 # Offer Statuses
 OFFER_STATUS_ACCEPTED = 'Accepted'
 OFFER_STATUS_PENDING = 'Pending'
