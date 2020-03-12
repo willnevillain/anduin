@@ -104,15 +104,3 @@ class TestOffersController:
             offers_controller._update_offer_status_by_id(some_uuid, 'new_status')
 
         assert mock_get.call_count > 1
-
-    def test_validate_new_offer(self):
-        assert 1 != 1
-
-    def test_validate_new_offer_raise_user_not_found_exception(self):
-        assert 1 != 1
-
-    def test_validate_new_offer_raise_weapon_not_found_exception(self):
-        assert 1 != 1
-
-    def test_validate_new_offer_raise_invalid_integrity_exception(self):
-        assert 1 != 1
