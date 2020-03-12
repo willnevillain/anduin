@@ -147,9 +147,8 @@ POST /api/offers/:id/reject
 4. Backfill and empty scripts are narrow scoped and would require refactoring to scale to more tables with more complex relationships
 5. Incoming request body schema validation and deserialization
 6. Restructure project into [component based style](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/projectstructre/breakintcomponents.md) rather than MVC style - better for increased scope or if breaking up into individual microservices.
-7. Composition of function calls in controllers rather than OO method chaining will make writing unit test cases easier, allowing less reliance on integration / e2e tests.
-8. Middleware to handle repeated `if not model_instance raise RowNotFound`. Global error handler for RowNotFound with custom response also probably aligned with that path.
-9. More efficient and repeatable DB-object validation pattern - validating new offer on `POST /offers` makes n DB calls where n is number of weapons passed in. Validation function also not standardized (since it's the only place in codebase with validation at this time). It's also ugly, but gets the job done. It can be cleaned up to not make redundant DB calls with the create function, but that would also up complexity a bit. Tradeoffs.
-10. Assumption is made at this time that transactions with no weapons can occur without error (though a bit weird and useless admittedly), and that transactions where one user is giving away weapons to another is also valid.
-11. We have absolutely no logging solution or form of observability.
-12. Less sunny-day paths on testing - need tests that handle when DB errors out or becomes unaccessible.
+7. Composition of function calls in controllers rather than OO method chaining will make writing unit test cases easier, allowing less reliance on integration / e2e tests for heavy DB logic
+8. More efficient and repeatable DB-object validation pattern - validating new offer on `POST /offers` makes n DB calls where n is number of weapons passed in. Validation function also not standardized (since it's the only place in codebase with validation at this time). It's also ugly, but gets the job done. It can be cleaned up to not make redundant DB calls with the create function, but that would also up complexity a bit. Tradeoffs.
+9. Assumption is made at this time that transactions with no weapons can occur without error (though a bit weird and useless admittedly), and that transactions where one user is giving away weapons to another is also valid.
+10. We have absolutely no logging solution or form of observability.
+11. Less sunny-day paths on testing - need tests that handle when DB errors out or becomes unaccessible.
