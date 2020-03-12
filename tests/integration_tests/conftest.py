@@ -1,4 +1,5 @@
 import pytest
+from webtest import TestApp
 
 from anduin.app import create_app
 from anduin.database import db as _db
@@ -16,6 +17,11 @@ def app():
     ctx.push()
 
     yield _app
+
+
+@pytest.fixture
+def testapp(app):
+    return TestApp(app)
 
 
 @pytest.yield_fixture

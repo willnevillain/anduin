@@ -7,6 +7,7 @@ verify_ssl = true
 python-language-server = {extras = ["all"],version = "*"}
 pytest = "*"
 factory-boy = "*"
+webtest = "*"
 
 [packages]
 flask = "*"
