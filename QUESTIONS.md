@@ -9,7 +9,7 @@ Currently, the backend of the system runs on a relational database. For one off 
 
 There's opportunity for a more real-time system to provide quicker BI to the rest of the company.
 
-An initial service to expose would be one to allow defining of queries (`questions`) that operate against our database.
+A useful service to expose would be one that allows users to define the questions and build the queries that operate against our database; an in-house reporting and analytics tool.
 Dashboards would be designable that allow viewing real time results of these queries. For real-time updating of data, we should store question query results in a cache (e.g. Redis) and only re-query the database on the expiry of a TTL.
 Additionally, the database accessed should be a distinct `reporting` database from our production app database - this would prevent churn of heavy reporting queries from impacting performance of the platform.
 An eventual-consistency paradigm of regularly (cadence defined by business need) copying updates from the app database to the reporting database would keep everything fairly up to date without being a drag on the overall system. 
