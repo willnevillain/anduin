@@ -3,6 +3,8 @@
 ## TL;DR
 1. API contract definitions are in `anduin/views/`.
 2. ORM models are in `anduin/models/`, DB schema is versioned and can be found in `migrations/versions/`.
+3. The tests under `tests/integration_tests/views/` are probably of interest.
+4. Things that still need improving are noted at the bottom of this README, but I'm happy with the way it turned out overall.
 
 ## Requirements
 
