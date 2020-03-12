@@ -13,7 +13,8 @@ def get_users():
 
 @users_blueprint.route('/<id>', methods=['GET'])
 def get_user_by_id(id):
-    return {}, 200
+    user = users_controller.get_user_by_id(id)
+    return {'user': user}, 200
 
 
 @users_blueprint.route('/<id>/inventory', methods=['GET'])

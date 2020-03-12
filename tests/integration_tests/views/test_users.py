@@ -34,8 +34,15 @@ class TestUsers:
 
     def test_get_user_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_by_id', id=str(user_with_weapons.id)))
+
         assert res.status_code == 200
-        assert res.json != {}
+        assert 'user' in res.json
+
+        user = res.json['user']
+        expected_keys = ['id', 'created_at', 'username', 'race', 'weapons']
+
+        assert all([key in user for key in expected_keys])
+        assert user['id'] == str(user_with_weapons.id)
 
     def test_get_user_by_id_not_found(self, testapp):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
