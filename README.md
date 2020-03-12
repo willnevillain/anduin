@@ -1,5 +1,9 @@
 # Anduin: The Amazon of Middle-Earth
 
+## TL;DR
+1. API contract definitions are in `anduin/views/`.
+2. ORM models are in `anduin/models/`, DB schema is versioned and can be found in `migrations/versions/`.
+
 ## Requirements
 
 ##### Python 3.7.6
@@ -124,6 +128,7 @@ GET /api/users
 GET /api/users/:id
 GET /api/users/:id/inventory
 POST /api/offers
+GET /api/offers/:id
 POST /api/offers/:id/accept
 POST /api/offers/:id/reject
 ```
@@ -132,8 +137,7 @@ POST /api/offers/:id/reject
 1. Table to track enumerated races (currently validated in models/users.py against constants)
 2. Table to track enumerated weapons (currently validated in models/weapons.py against constants)
 3. Maybe dedicated models for many-to-many tables (association tables currently defined in models/offers.py)
-4. Backfill and empty scripts are narrow scoped and would require refactoring to scale to more tables with more complex relationships.
-
-### Concessions
-1. App is structured in MVC style rather than [component based style](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/projectstructre/breakintcomponents.md) due to the small scale and narrow scoping. If this app were to begin increasing in scale, become a foundation for a monolithic backend, or need to be broken up into individual microservices, then refactoring the project structure would be the first item on the list.
+4. Backfill and empty scripts are narrow scoped and would require refactoring to scale to more tables with more complex relationships
+5. Incoming request body schema validation and deserialization
+6. Restructure project into [component based style](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/projectstructre/breakintcomponents.md) rather than MVC style - better for increased scope or if breaking up into individual microservices.
 
