@@ -21,6 +21,15 @@ def get_user_by_id(id):
         return {'error': f'No user found with id {id}'}, 404
 
 
+@users_blueprint.route('/username/<username>', methods=['GET'])
+def get_user_by_username(username):
+    try:
+        user = users_controller.get_user_by_username(username)
+        return {'user': user}, 200
+    except RowNotFound:
+        return {'error': f'No user found with username {username}'}, 404
+
+
 @users_blueprint.route('/<id>/inventory', methods=['GET'])
 def get_user_inventory_by_id(id):
     try:

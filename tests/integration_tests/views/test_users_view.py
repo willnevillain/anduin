@@ -51,6 +51,25 @@ class TestUsers:
         assert res.status_code == 404
         assert res.json == {'error': f'No user found with id {bogus_id}'}
 
+    def test_get_user_by_username(self, testapp, user_with_weapons):
+        res = testapp.get(url_for('users_blueprint.get_user_by_username', username=str(user_with_weapons.username)))
+
+        assert res.status_code == 200
+        assert 'user' in res.json
+
+        user = res.json['user']
+        expected_keys = ['id', 'created_at', 'username', 'race', 'weapons']
+
+        assert all([key in user for key in expected_keys])
+        assert user['username'] == str(user_with_weapons.username)
+
+    def test_get_user_by_username_not_found(self, testapp):
+        bogus_username = 'hunter2'
+        res = testapp.get(url_for('users_blueprint.get_user_by_username', username=bogus_username), expect_errors=True)
+
+        assert res.status_code == 404
+        assert res.json == {'error': f'No user found with username {bogus_username}'}
+
     def test_get_user_inventory_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=str(user_with_weapons.id)))
 

@@ -12,10 +12,22 @@ def get_users():
 def get_user_by_id(id):
     """
     Get a Users row from db and return as dict
-    :param id: id of row in users table
+    :param id: id of row in Users table
     :type id: uuid str
     """
     user = Users.get_by_id(id).first()
+    if not user:
+        raise RowNotFound()
+    return user.to_dict()
+
+
+def get_user_by_username(username):
+    """
+    Get a Users row from db by username and return as dict
+    :param username: username of row in Users table
+    :type username: str
+    """
+    user = Users.get_by_username(username).first()
     if not user:
         raise RowNotFound()
     return user.to_dict()

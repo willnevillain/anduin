@@ -38,6 +38,21 @@ class TestUsersController:
 
         assert mock_get.call_count >= 1
 
+    @patch.object(Users, 'get_by_username')
+    def test_get_user_by_username(self, mock_get):
+        users_controller.get_user_by_username('gandalf-the-grey')
+        mock_get.assert_called_once()
+
+    @patch.object(Users, 'get_by_username')
+    def test_get_user_by_username_raise_not_found_exception(self, mock_get):
+        bogus_username = 'hunter2'
+        mock_get(bogus_username).first.return_value = None
+
+        with pytest.raises(RowNotFound):
+            users_controller.get_user_by_username(bogus_username)
+
+        assert mock_get.call_count >= 1
+
     @patch.object(Users, 'get_by_id')
     def test_get_user_inventory_by_id(self, mock_get):
         users_controller.get_user_inventory_by_id('some_uuid')
