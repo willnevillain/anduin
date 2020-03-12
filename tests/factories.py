@@ -12,6 +12,7 @@ class BaseFactory(SQLAlchemyModelFactory):
     class Meta:
         abstract = True
         sqlalchemy_session = db.session
+        sqlalchemy_session_persistence = 'flush'
 
 
 class OffersFactory(BaseFactory):
