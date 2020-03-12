@@ -2,9 +2,10 @@
 
 ## TL;DR
 1. API contract definitions are in `anduin/views/`.
-2. ORM models are in `anduin/models/`, DB schema is versioned and can be found in `migrations/versions/`.
+2. App registration and error handlers defiend in `anduin/app.py`.
 3. The tests under `tests/integration_tests/views/` are probably of interest.
-4. Things that still need improving are noted at the bottom of this README, but I'm happy with the way it turned out overall.
+4. ORM models are in `anduin/models/`, DB schema is versioned and can be found in `migrations/versions/`.
+5. Things that still need improving are noted at the bottom of this README, but I'm happy with the way it turned out overall.
 
 ## Requirements
 
@@ -152,4 +153,3 @@ POST /api/offers/:id/reject
 10. Assumption is made at this time that transactions with no weapons can occur without error (though a bit weird and useless admittedly), and that transactions where one user is giving away weapons to another is also valid.
 11. We have absolutely no logging solution or form of observability.
 12. Less sunny-day paths on testing - need tests that handle when DB errors out or becomes unaccessible.
-

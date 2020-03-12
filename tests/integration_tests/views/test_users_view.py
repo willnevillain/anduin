@@ -1,6 +1,8 @@
 import pytest
 from flask import url_for
 
+from anduin.database import db
+from anduin.models.users import Users
 from tests import factories
 
 
@@ -17,7 +19,7 @@ class TestUsers:
 
         assert res.status_code == 200
         assert 'users' in res.json
-        assert len(res.json['users']) == 1
+        assert len(res.json['users']) >= 1
 
         user = res.json['users'][0]
         expected_keys = ['id', 'created_at', 'username', 'race', 'weapons']
@@ -25,12 +27,6 @@ class TestUsers:
 
         assert user['id'] == str(user_with_weapons.id)
         assert len(user['weapons']) == len(user_with_weapons.weapons)
-
-    def test_get_users_empty_response(self, testapp):
-        res = testapp.get(url_for('users_blueprint.get_users'))
-
-        assert res.status_code == 200
-        assert res.json == {'users': []}
 
     def test_get_user_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_by_id', id=str(user_with_weapons.id)))
@@ -49,7 +45,7 @@ class TestUsers:
         res = testapp.get(url_for('users_blueprint.get_user_by_id', id=bogus_id), expect_errors=True)
 
         assert res.status_code == 404
-        assert res.json == {'error': f'No user found with id {bogus_id}'}
+        assert f'No user found with id {bogus_id}' in res.json['error']
 
     def test_get_user_by_username(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_by_username', username=str(user_with_weapons.username)))
@@ -68,7 +64,7 @@ class TestUsers:
         res = testapp.get(url_for('users_blueprint.get_user_by_username', username=bogus_username), expect_errors=True)
 
         assert res.status_code == 404
-        assert res.json == {'error': f'No user found with username {bogus_username}'}
+        assert f'No user found with username {bogus_username}' in res.json['error']
 
     def test_get_user_inventory_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=str(user_with_weapons.id)))
@@ -86,4 +82,4 @@ class TestUsers:
         res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=bogus_id), expect_errors=True)
 
         assert res.status_code == 404
-        assert res.json == {'error': f'No user found with id {bogus_id}'}
+        assert f'No user found with id {bogus_id}' in res.json['error']

@@ -14,26 +14,17 @@ def get_users():
 
 @users_blueprint.route('/<id>', methods=['GET'])
 def get_user_by_id(id):
-    try:
-        user = users_controller.get_user_by_id(id)
-        return {'user': user}, 200
-    except RowNotFound:
-        return {'error': f'No user found with id {id}'}, 404
+    user = users_controller.get_user_by_id(id)
+    return {'user': user}, 200
 
 
 @users_blueprint.route('/username/<username>', methods=['GET'])
 def get_user_by_username(username):
-    try:
-        user = users_controller.get_user_by_username(username)
-        return {'user': user}, 200
-    except RowNotFound:
-        return {'error': f'No user found with username {username}'}, 404
+    user = users_controller.get_user_by_username(username)
+    return {'user': user}, 200
 
 
 @users_blueprint.route('/<id>/inventory', methods=['GET'])
 def get_user_inventory_by_id(id):
-    try:
-        inventory = users_controller.get_user_inventory_by_id(id)
-        return {'inventory': inventory}, 200
-    except RowNotFound:
-        return {'error': f'No user found with id {id}'}, 404
+    inventory = users_controller.get_user_inventory_by_id(id)
+    return {'inventory': inventory}, 200

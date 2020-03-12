@@ -1,6 +1,7 @@
 from flask import Flask
 
 from anduin import cli
+from anduin.exceptions import InvalidDataIntegrity, RowNotFound
 from anduin.extensions import db, migrate
 
 
@@ -31,11 +32,16 @@ def register_cli(app):
 
 def register_errorhandlers(app):
     """Register error handlers"""
-    def handle_error(error):
-        response = error.to_json()
-        response.status_code = error.http_status_code
-        return response
-    # app.errorhandler(DBError)(handle_error)
+    def build_error_body(e):
+        return {'error': f'{e.__class__.__name__}: {str(e)}'}
+
+    @app.errorhandler(InvalidDataIntegrity)
+    def handle_invalid_data_integrity(e):
+        return build_error_body(e), 400
+
+    @app.errorhandler(RowNotFound)
+    def handle_row_not_found(e):
+        return build_error_body(e), 404
 
 
 def register_extensions(app):

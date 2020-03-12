@@ -37,7 +37,7 @@ def create_offer(offer_dict):
     """
     try:
         _validate_new_offer(offer_dict)
-    except (RowNotFound, InvalidDataIntegrity):
+    except (InvalidDataIntegrity, RowNotFound):
         raise
     user_models = []
     weapon_models = []
@@ -59,7 +59,10 @@ def accept_offer_by_id(id):
     :param id: id of row on Offers table
     :type id: uuid str
     """
-    return _update_offer_status_by_id(id, OFFER_STATUS_ACCEPTED)
+    try:
+        return _update_offer_status_by_id(id, OFFER_STATUS_ACCEPTED)
+    except (InvalidDataIntegrity, RowNotFound):
+        raise
 
 
 def reject_offer_by_id(id):
@@ -69,15 +72,20 @@ def reject_offer_by_id(id):
     :param id: id of row on Offers table
     :type id: uuid str
     """
-    return _update_offer_status_by_id(id, OFFER_STATUS_REJECTED)
+    try:
+        return _update_offer_status_by_id(id, OFFER_STATUS_REJECTED)
+    except (InvalidDataIntegrity, RowNotFound):
+        raise
 
 
 def _update_offer_status_by_id(id, new_status):
     offer = Offers.get_by_id(id).first()
     if not offer:
-        raise RowNotFound()
+        raise RowNotFound(f'Offer not found for id {id}')
     elif offer.status != OFFER_STATUS_PENDING:
-        raise InvalidDataIntegrity()
+        raise InvalidDataIntegrity(
+            f'Offer with id {id} is already in final state {offer.status} - update to {new_status} failed'
+        )
     offer.status = new_status
     offer.save()
     return offer.to_dict()
@@ -104,11 +112,13 @@ def _validate_new_offer(offer_dict):
     for user in offer_dict['users']:
         user_model = Users.get_by_username(user['username']).first()
         if not user_model:
-            raise RowNotFound()
+            raise RowNotFound(f"No user found for username {user['username']}")
         user_model_weapon_ids = [weapon.id for weapon in user_model.weapons]
         for weapon_id in user['weapon_ids']:
             weapon_model = Weapons.get_by_id(weapon_id).first()
             if not weapon_model:
-                raise RowNotFound()
+                raise RowNotFound(f'No weapon found for id {weapon_id}')
             elif weapon_model.id not in user_model_weapon_ids:
-                raise InvalidDataIntegrity()
+                raise InvalidDataIntegrity(
+                    f'Weapon with id {str(weapon_model.id)} does not belong to user ${user_model.username}!'
+                )

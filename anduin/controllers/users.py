@@ -17,7 +17,7 @@ def get_user_by_id(id):
     """
     user = Users.get_by_id(id).first()
     if not user:
-        raise RowNotFound()
+        raise RowNotFound(f'No user found with id {id}')
     return user.to_dict()
 
 
@@ -29,7 +29,7 @@ def get_user_by_username(username):
     """
     user = Users.get_by_username(username).first()
     if not user:
-        raise RowNotFound()
+        raise RowNotFound(f'No user found with username {username}')
     return user.to_dict()
 
 
@@ -41,5 +41,5 @@ def get_user_inventory_by_id(id):
     """
     user = Users.get_by_id(id).first()
     if not user:
-        raise RowNotFound()
+        raise RowNotFound(f'No user found with id {id}')
     return [weapon.to_dict(recurse_relationships=False) for weapon in user.weapons]
