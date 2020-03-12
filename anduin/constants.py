@@ -15,7 +15,7 @@ RACE_ELF = 'Elf'
 RACE_WIZARD = 'Wizard'
 RACES = [RACE_DWARF, RACE_ELF, RACE_WIZARD]
 
-# Weapon Variants
+# Weapon Categories
 WEAPON_AXE = 'Axe'
 WEAPON_STAFF = 'Staff'
 WEAPON_SWORD = 'Sword'
