@@ -24,7 +24,7 @@ def testapp(app):
     return TestApp(app)
 
 
-@pytest.yield_fixture
+@pytest.yield_fixture(autouse=True)
 def db(app):
     """Test Database"""
     _db.app = app

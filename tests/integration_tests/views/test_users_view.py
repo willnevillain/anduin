@@ -21,11 +21,9 @@ class TestUsers:
         assert 'users' in res.json
         assert len(res.json['users']) >= 1
 
-        user = res.json['users'][0]
+        user = [u for u in res.json['users'] if u['id'] == str(user_with_weapons.id)][0]
         expected_keys = ['id', 'created_at', 'username', 'race', 'weapons']
         assert all([key in user for key in expected_keys])
-
-        assert user['id'] == str(user_with_weapons.id)
         assert len(user['weapons']) == len(user_with_weapons.weapons)
 
     def test_get_user_by_id(self, testapp, user_with_weapons):

@@ -64,7 +64,7 @@ class TestOffers:
 
     def test_get_offer_by_id_not_found(self, testapp):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
-        res = testapp.get(url_for('offers_blueprint.get_offer_by_id', id=bogus_id))
+        res = testapp.get(url_for('offers_blueprint.get_offer_by_id', id=bogus_id), expect_errors=True)
         assert res.status_code == 404
         assert res.json != {}
 
@@ -87,12 +87,12 @@ class TestOffers:
 
     def test_accept_offer_by_id_not_found(self, testapp, offers):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
-        res = testapp.post(url_for('offers_blueprint.accept_offer_by_id', id=bogus_id))
+        res = testapp.post(url_for('offers_blueprint.accept_offer_by_id', id=bogus_id), expect_errors=True)
         assert res.status_code == 404
         assert res.json != {}
 
     def test_accept_offer_by_id_already_completed(self, testapp, accepted_offer):
-        res = testapp.post(url_for('offers_blueprint.accept_offer_by_id', id=str(accepted_offer.id)))
+        res = testapp.post(url_for('offers_blueprint.accept_offer_by_id', id=str(accepted_offer.id)), expect_errors=True)
         assert res.status_code == 400
         assert res.json != {}
 
@@ -103,11 +103,11 @@ class TestOffers:
 
     def test_reject_offer_by_id_not_found(self, testapp, offers):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
-        res = testapp.post(url_for('offers_blueprint.reject_offer_by_id', id=bogus_id))
+        res = testapp.post(url_for('offers_blueprint.reject_offer_by_id', id=bogus_id), expect_errors=True)
         assert res.status_code == 404
         assert res.json != {}
 
     def test_reject_offer_by_id_already_completed(self, testapp, rejected_offer):
-        res = testapp.post(url_for('offers_blueprint.reject_offer_by_id', id=str(rejected_offer.id)))
+        res = testapp.post(url_for('offers_blueprint.reject_offer_by_id', id=str(rejected_offer.id)), expect_errors=True)
         assert res.status_code == 400
         assert res.json != {}
