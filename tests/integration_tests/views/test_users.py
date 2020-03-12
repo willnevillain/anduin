@@ -46,17 +46,25 @@ class TestUsers:
 
     def test_get_user_by_id_not_found(self, testapp):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
-        res = testapp.get(url_for('users_blueprint.get_user_by_id', id=bogus_id))
+        res = testapp.get(url_for('users_blueprint.get_user_by_id', id=bogus_id), expect_errors=True)
+
         assert res.status_code == 404
-        assert res.json != {}
+        assert res.json == {'error': f'No user found with id {bogus_id}'}
 
     def test_get_user_inventory_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=str(user_with_weapons.id)))
+
         assert res.status_code == 200
-        assert res.json != {}
+        assert 'inventory' in res.json
+
+        weapons = res.json['inventory']
+        original_user_weapon_ids = [str(weapon.id) for weapon in user_with_weapons.weapons]
+        assert len(weapons) == len(user_with_weapons.weapons)
+        assert all([weapon['id'] in original_user_weapon_ids for weapon in weapons])
 
     def test_get_user_inventory_by_id_not_found(self, testapp, user_with_weapons):
         bogus_id = 'cc9deeab-b652-4b4c-be72-da5b2dfed5d3'
-        res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=bogus_id))
+        res = testapp.get(url_for('users_blueprint.get_user_inventory_by_id', id=bogus_id), expect_errors=True)
+
         assert res.status_code == 404
-        assert res.json != {}
+        assert res.json == {'error': f'No user found with id {bogus_id}'}
