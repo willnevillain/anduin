@@ -14,13 +14,23 @@ class TestUsers:
 
     def test_get_users(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_users'))
+
         assert res.status_code == 200
-        assert res.json != {}
+        assert 'users' in res.json
+        assert len(res.json['users']) == 1
+
+        user = res.json['users'][0]
+        expected_keys = ['id', 'created_at', 'username', 'race', 'weapons']
+        assert all([key in user for key in expected_keys])
+
+        assert user['id'] == str(user_with_weapons.id)
+        assert len(user['weapons']) == len(user_with_weapons.weapons)
 
     def test_get_users_empty_response(self, testapp):
         res = testapp.get(url_for('users_blueprint.get_users'))
+
         assert res.status_code == 200
-        assert res.json != {}
+        assert res.json == {'users': []}
 
     def test_get_user_by_id(self, testapp, user_with_weapons):
         res = testapp.get(url_for('users_blueprint.get_user_by_id', id=str(user_with_weapons.id)))

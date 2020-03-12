@@ -1,11 +1,14 @@
 from flask import Blueprint
 
+from anduin.controllers import users as users_controller
+
 users_blueprint = Blueprint('users_blueprint', __name__, url_prefix='/api/users')
 
 
 @users_blueprint.route('/', methods=['GET'])
 def get_users():
-    return {}, 200
+    users = users_controller.get_users()
+    return {'users': users}, 200
 
 
 @users_blueprint.route('/<id>', methods=['GET'])
