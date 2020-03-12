@@ -8,16 +8,19 @@ def create_app(config):
     """Build Flask application"""
     app = Flask(__name__)
     app.config.from_object(config)
-    register_blueprints(app)
     register_cli(app)
     register_errorhandlers(app)
     register_extensions(app)
+    register_blueprints(app)
     return app
 
 
 def register_blueprints(app):
-    """Register blueprints (API endpoint definitions)"""
-    pass
+    """Register API routes"""
+    from anduin.views.offers import offers_blueprint
+    from anduin.views.users import users_blueprint
+    app.register_blueprint(offers_blueprint)
+    app.register_blueprint(users_blueprint)
 
 
 def register_cli(app):
