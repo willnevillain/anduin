@@ -133,11 +133,12 @@ POST /api/offers/:id/accept
 POST /api/offers/:id/reject
 ```
 
-### Areas to Scale
+### Areas to Scale and Improve
 1. Table to track enumerated races (currently validated in models/users.py against constants)
 2. Table to track enumerated weapons (currently validated in models/weapons.py against constants)
 3. Maybe dedicated models for many-to-many tables (association tables currently defined in models/offers.py)
 4. Backfill and empty scripts are narrow scoped and would require refactoring to scale to more tables with more complex relationships
 5. Incoming request body schema validation and deserialization
 6. Restructure project into [component based style](https://github.com/goldbergyoni/nodebestpractices/blob/master/sections/projectstructre/breakintcomponents.md) rather than MVC style - better for increased scope or if breaking up into individual microservices.
+7. Composition of function calls in controllers rather than OO method chaining will make writing unit test cases easier, allowing less reliance on integration / e2e tests.
 
