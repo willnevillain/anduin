@@ -120,5 +120,5 @@ def _validate_new_offer(offer_dict):
                 raise RowNotFound(f'No weapon found for id {weapon_id}')
             elif weapon_model.id not in user_model_weapon_ids:
                 raise InvalidDataIntegrity(
-                    f'Weapon with id {str(weapon_model.id)} does not belong to user ${user_model.username}!'
+                    f'Weapon with id {str(weapon_model.id)} does not belong to user {user_model.username}!'
                 )

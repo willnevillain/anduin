@@ -1,0 +1,44 @@
+:root = http://localhost:5000
+
+###
+# Users
+###
+# Get users
+GET :root/api/users
+
+# Get user by id
+GET :root/api/users/238df5fd-621a-46a5-b296-756cfaad6b8c
+
+# Get user inventory by id
+GET :root/api/users/238df5fd-621a-46a5-b296-756cfaad6b8c/inventory
+
+# GET user by username
+GET :root/api/users/username/ganondalf42
+
+###
+# Offers
+###
+# Create offer
+POST :root/api/offers
+Content-Type: application/json
+{
+  "users": [
+    {
+      "username": "gandalf1",
+      "weapon_ids": ["a94782a9-5902-46a5-ae2e-a2fade88d784"]
+    },
+    {
+      "username": "ganondalf42",
+      "weapon_ids": ["44203d5f-7540-4e1a-9fa6-104aa6459cc5"]
+    }
+  ]
+}
+
+# Get offer by id
+GET :root/api/offers/e879e377-1c1e-4230-9900-df850913aedf
+
+# Accept offer by id
+POST :root/api/offers/e879e377-1c1e-4230-9900-df850913aedf/accept
+
+# Reject offer by id
+POST :root/api/offers/70e9f49a-fd17-4c87-8209-74057d324de1/reject
