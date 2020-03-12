@@ -149,4 +149,5 @@ POST /api/offers/:id/reject
 9. More efficient and repeatable DB-object validation pattern - validating new offer on `POST /offers` makes n DB calls where n is number of weapons passed in. Validation function also not standardized (since it's the only place in codebase with validation at this time). It's also ugly, but gets the job done. It can be cleaned up to not make redundant DB calls with the create function, but that would also up complexity a bit. Tradeoffs.
 10. Assumption is made at this time that transactions with no weapons can occur without error (though a bit weird and useless admittedly), and that transactions where one user is giving away weapons to another is also valid.
 11. We have absolutely no logging solution or form of observability.
+12. Less sunny-day paths on testing - need tests that handle when DB errors out or becomes unaccessible.
 

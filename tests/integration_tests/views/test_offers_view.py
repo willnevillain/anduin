@@ -80,9 +80,6 @@ class TestOffers:
     def test_create_offer_incorrect_ownership(self, testapp, users_with_weapons):
         assert 1 != 1
 
-    def test_create_offer_db_error(self, testapp, users_with_weapons):
-        assert 1 != 1
-
     def test_accept_offer_by_id(self, testapp, offers):
         res = testapp.post(url_for('offers_blueprint.accept_offer_by_id', id=str(offers[0].id)))
         assert res.status_code == 200
