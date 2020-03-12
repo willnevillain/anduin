@@ -1,7 +1,6 @@
 from flask import Blueprint
 
 from anduin.controllers import users as users_controller
-from anduin.exceptions import RowNotFound
 
 users_blueprint = Blueprint('users_blueprint', __name__, url_prefix='/api/users')
 

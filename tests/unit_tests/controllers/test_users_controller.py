@@ -34,7 +34,7 @@ class TestUsersController:
         mock_get(bogus_id).first.return_value = None
 
         with pytest.raises(RowNotFound):
-            users_controller.get_user_by_id('some_bogus_id')
+            users_controller.get_user_by_id(bogus_id)
 
         assert mock_get.call_count >= 1
 

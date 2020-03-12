@@ -13,7 +13,7 @@ def get_offer_by_id(id):
     """
     offer = Offers.get_by_id(id).first()
     if not offer:
-        raise RowNotFound()
+        raise RowNotFound(f'No offer found for id {id}')
     return offer.to_dict()
 
 

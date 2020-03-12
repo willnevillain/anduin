@@ -1,7 +1,6 @@
-from flask import Blueprint, make_response, request, url_for
+from flask import Blueprint, request
 
 from anduin.controllers import offers as offers_controller
-from anduin.exceptions import InvalidDataIntegrity, RowNotFound
 
 offers_blueprint = Blueprint('offers_blueprint', __name__, url_prefix='/api/offers')
 
@@ -27,5 +26,5 @@ def accept_offer_by_id(id):
 
 @offers_blueprint.route('/<id>/reject', methods=['POST'])
 def reject_offer_by_id(id):
-    updated = offers_controller.accept_offer_by_id(id)
+    updated = offers_controller.reject_offer_by_id(id)
     return {'offer': updated}, 200
