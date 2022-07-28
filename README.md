@@ -1,4 +1,4 @@
-# Anduin: The Amazon of Middle-Earth
+# Anduin
 
 ## TL;DR
 1. API contract definitions are in `anduin/views/`.
